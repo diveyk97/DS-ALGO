@@ -1,0 +1,54 @@
+class TrieNode{
+    public:
+        vector<TrieNode*> charArr ; 
+        bool endofword;
+        int key ;
+    TrieNode(){
+        endofword = false ;
+        charArr = vector<TrieNode*>(26,NULL) ;
+    }
+};
+class Trie{
+    private:
+    TrieNode* trienode,*duplicatetrienode;
+    
+    public: 
+    Trie(){
+        trienode = new TrieNode() ;
+    }
+    void insert(string word,int key){
+        duplicatetrienode = trienode ;
+        for (char c:word){
+            if (duplicatetrienode->charArr[c-'a']==NULL){
+                duplicatetrienode->charArr[c-'a'] = new TrieNode() ;
+            }
+            duplicatetrienode = duplicatetrienode->charArr[c-'a'] ;
+        }
+        duplicatetrienode->endofword = true ;
+        duplicatetrienode->key = key ;
+    }
+    void traverse(TrieNode* node){
+        if (node){
+            for (int i=0;i<26;i++){
+                traverse(node->charArr[i]) ;
+            }
+        }
+    }
+   
+    
+};
+class MapSum {
+public:
+    Trie* trie ;
+    MapSum() {
+        trie = new Trie() ;
+    }
+    
+    void insert(string key, int val) {
+        trie->insert(key,val) ;
+    }
+    
+    int sum(string prefix) {
+        return trie->getSum(prefix) ;
+    }
+};
