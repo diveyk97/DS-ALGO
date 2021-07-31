@@ -33,22 +33,15 @@ class Trie{
                 traverse(node->charArr[i]) ;
             }
         }
-    }
-   
-    
+    }   
 };
-class MapSum {
-public:
-    Trie* trie ;
-    MapSum() {
+int main(){
         trie = new Trie() ;
-    }
-    
-    void insert(string key, int val) {
+        string key ; 
+        int val ;
+        cin>>key>>val ;
         trie->insert(key,val) ;
-    }
+}
     
-    int sum(string prefix) {
-        return trie->getSum(prefix) ;
-    }
-};
+    
+
