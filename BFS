@@ -1,0 +1,44 @@
+
+// Given start position and end position, find least number of steps to reach end position from start position in undirected graph.
+// graph contains, obstacles
+
+class Solution {
+private:
+    vector<int> start,end ;
+    int bfs(vector<vector<char>>& grid){
+        int m = grid.size() , n = grid[0].size() ;
+        queue<vector<int>> q ;
+        vector<vector<int>> vis(m,vector<int>(n,0)) ;
+        q.push({start}) ;
+        q.push({}) ;
+        int lvl = 0 ;
+        while(q.size()>1){
+            auto front = q.front() ;
+            q.pop() ;
+            if (front.empty()){
+                q.push({}) ;
+                lvl++ ;
+                continue ;
+            }
+            int x = front[0] , y = front[1] ;
+            if (x<0 || y<0 || x>m-1 || y>n-1 || grid[x][y]=='X' || vis[x][y]) continue ;
+            vis[x][y] = 1 ;
+            if (front==end) return lvl ;
+            q.push({x-1,y}) ;
+            q.push({x+1,y}) ;
+            q.push({x,y-1}) ;
+            q.push({x,y+1}) ;
+        }
+        return -1 ;
+    }
+
+public:
+    int main () {
+        vector<vector<char>> grid ;
+        input(grid) ;
+        input(start) ;
+        input(end) ;
+        return bfs(grid) ;
+        
+    }
+};
